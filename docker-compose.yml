@@ -1,0 +1,10 @@
+version: '2'
+services:
+  spigot:
+    build:
+      context: .
+    environment:
+      - SPIGOT_VER latest
+    volumes:
+      - /home/spigot/data:/minecraft/
+    restart: always
