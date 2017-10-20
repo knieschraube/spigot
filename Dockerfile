@@ -1,3 +1,4 @@
+
 FROM openjdk
 
 MAINTAINER Philipp Kamps <knieschraube@msn.com>
@@ -18,11 +19,13 @@ RUN mkdir /minecraft \
 RUN cd /minecraft/buildtools \
         && java -jar /minecraft/buildtools/buildtools.jar --rev ${SPIGOT_VER}
 
-RUN cp /minecraft/buildtools/Spigot/Spigot-Server/target/spigot-*.jar /minecraft/spigot.jar \
+RUN mkdir /minecraft_executeables
+
+RUN cp /minecraft/buildtools/Spigot/Spigot-Server/target/spigot-*.jar /minecraft_executeables/spigot.jar \
         && rm -r /minecraft/buildtools
 
 WORKDIR /minecraft
 
-COPY eula.sh /minecraft/eula.sh
+COPY eula.sh /minecraft_executeables/eula.sh
 
-ENTRYPOINT ["/bin/bash", "-c", "eula.sh"]
+ENTRYPOINT ["/bin/bash", "-c", "/minecraft_executeables/eula.sh"]
