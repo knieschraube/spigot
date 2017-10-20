@@ -5,6 +5,7 @@ MAINTAINER Philipp Kamps <knieschraube@msn.com>
 EXPOSE 25565
 
 ENV SPIGOT_VER=latest
+ENV SPIGOT_EULA=false
               
 RUN apt-get update \
         && apt-get install -y wget git \
@@ -20,7 +21,8 @@ RUN cd /minecraft/buildtools \
 RUN cp /minecraft/buildtools/Spigot/Spigot-Server/target/spigot-*.jar /minecraft/spigot.jar \
         && rm -r /minecraft/buildtools
 
-RUN echo "eula=true" > /minecraft/eula.txt
+WORKDIR /minecraft
 
-ENTRYPOINT ["java", "-Xmx1024M", "-Xms1024M", "-jar", "/minecraft/spigot.jar", "nogui"]
-CMD [""]
+COPY eula.sh /minecraft/eula.sh
+
+ENTRYPOINT ["/bin/bash", "-c", "eula.sh"]
