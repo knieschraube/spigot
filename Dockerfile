@@ -1,12 +1,8 @@
-
-FROM openjdk
+FROM openjdk AS build
 
 MAINTAINER Philipp Kamps <knieschraube@msn.com>
 
-EXPOSE 25565
-
 ENV SPIGOT_VER=latest
-ENV SPIGOT_EULA=false
               
 RUN apt-get update \
         && apt-get install -y wget git \
@@ -24,7 +20,18 @@ RUN mkdir /minecraft_executeables
 RUN cp /minecraft/buildtools/Spigot/Spigot-Server/target/spigot-*.jar /minecraft_executeables/spigot.jar \
         && rm -r /minecraft/buildtools
 
+###
+
+FROM openjdk
+
+EXPOSE 25565
+
+ENV SPIGOT_EULA=false
+
+VOLUME [ "/minecraft" ]
 WORKDIR /minecraft
+
+COPY --from=build /minecraft_executeables/ /minecraft_executeables/
 
 COPY eula.sh /minecraft_executeables/eula.sh
 
