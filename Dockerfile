@@ -34,5 +34,7 @@ WORKDIR /minecraft
 COPY --from=build /minecraft_executeables/ /minecraft_executeables/
 
 COPY eula.sh /minecraft_executeables/eula.sh
+COPY mcmd.sh /minecraft_executeables/mcmd.sh
+RUN ln -s /minecraft_executeables/mcmd.sh /usr/local/bin/mcmd
 
 ENTRYPOINT ["/bin/bash", "-c", "/minecraft_executeables/eula.sh"]

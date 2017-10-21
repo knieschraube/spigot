@@ -1,0 +1,1 @@
+docker-compose exec spigot /bin/bash -c "mcmd $*"
