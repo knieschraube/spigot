@@ -5,7 +5,7 @@
 version: '3.2'
 services:
   spigot:
-    image: knieschraube/spigot:v0.2
+    image: knieschraube/spigot
     restart: always
     ports:
       - 25565:25565
