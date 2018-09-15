@@ -1,8 +1,6 @@
 FROM openjdk AS build
 
 MAINTAINER Philipp Kamps <knieschraube@msn.com>
-
-ENV SPIGOT_VER=latest
               
 RUN apt-get update \
         && apt-get install -y wget git \
@@ -11,7 +9,9 @@ RUN apt-get update \
 RUN mkdir /minecraft \
         && mkdir /minecraft/buildtools  \
         && wget -O /minecraft/buildtools/buildtools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-        
+
+ARG SPIGOT_VER=latest
+
 RUN cd /minecraft/buildtools \
         && java -jar /minecraft/buildtools/buildtools.jar --rev ${SPIGOT_VER}
 
