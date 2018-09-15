@@ -10,7 +10,7 @@ RUN mkdir /minecraft \
         && mkdir /minecraft/buildtools  \
         && wget -O /minecraft/buildtools/buildtools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 
-ARG SPIGOT_VER=latest
+ARG SPIGOT_VER=1.13.1
 
 RUN cd /minecraft/buildtools \
         && java -jar /minecraft/buildtools/buildtools.jar --rev ${SPIGOT_VER}
